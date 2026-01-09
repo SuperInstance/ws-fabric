@@ -2,7 +2,7 @@
 //!
 //! Run with: cargo bench --bench message_bench
 
-use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use websocket_fabric::Message;
 
 fn bench_message_text_creation(c: &mut Criterion) {
@@ -73,7 +73,7 @@ fn bench_message_json(c: &mut Criterion) {
 
     c.bench_function("message_json", |b| {
         b.iter(|| {
-            black_box(Message::json(&data));
+            black_box(Message::json(&data).unwrap());
         });
     });
 }
