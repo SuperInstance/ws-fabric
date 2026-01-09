@@ -1,6 +1,7 @@
 //! Error types for websocket-fabric
 
 use std::io;
+use std::time::Duration;
 
 /// Errors that can occur in WebSocket operations
 #[derive(thiserror::Error, Debug)]
@@ -76,6 +77,25 @@ pub enum Error {
     /// Timeout
     #[error("Operation timed out")]
     Timeout,
+
+    /// Invalid subprotocol name
+    #[error("Invalid subprotocol: {0}")]
+    InvalidSubprotocol(String),
+
+    /// Subprotocol negotiation failed
+    #[error("Subprotocol negotiation failed: {0}")]
+    SubprotocolNegotiationFailed(String),
+
+    /// Rate limit exceeded
+    #[error("Rate limit exceeded for {rate_limit_type:?}, retry after {retry_after:?}")]
+    RateLimitExceeded {
+        rate_limit_type: crate::ratelimit::RateLimitType,
+        retry_after: Duration,
+    },
+
+    /// Connection limit exceeded
+    #[error("Connection limit exceeded: {current} connections (max {limit})")]
+    ConnectionLimitExceeded { current: u64, limit: u64 },
 }
 
 /// Result type for WebSocket operations

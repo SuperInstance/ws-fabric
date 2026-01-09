@@ -28,6 +28,9 @@ http = "1.2"
 base64 = "0.22"
 sha1 = "0.10"
 rand = "0.8"
+uuid = { version = "1.11", features = ["v4"] }
+flate2 = "1.0"
+regex-lite = "0.1"
 
 [dev-dependencies]
 tokio-test = "0.4"

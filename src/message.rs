@@ -258,6 +258,17 @@ impl Frame {
         }
     }
 
+    /// Create a new frame with compression flag
+    pub fn with_compression(mut self, compressed: bool) -> Self {
+        self.rsv1 = compressed;
+        self
+    }
+
+    /// Check if frame is compressed
+    pub fn is_compressed(&self) -> bool {
+        self.rsv1
+    }
+
     /// Get frame size
     pub fn len(&self) -> usize {
         self.payload.len()
@@ -348,5 +359,19 @@ mod tests {
         assert!(frame.is_final());
         assert_eq!(frame.opcode(), 0x01);
         assert_eq!(frame.len(), 0);
+    }
+
+    #[test]
+    fn test_frame_compression() {
+        let frame = Frame::new(true, 0x01, Bytes::new())
+            .with_compression(true);
+
+        assert!(frame.is_compressed());
+        assert!(frame.rsv1);
+
+        let frame_uncompressed = Frame::new(true, 0x01, Bytes::new())
+            .with_compression(false);
+
+        assert!(!frame_uncompressed.is_compressed());
     }
 }

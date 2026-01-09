@@ -131,10 +131,34 @@ impl MetricsCollector {
         (metrics.messages_sent, metrics.messages_received)
     }
 
+    /// Get number of messages sent
+    pub fn messages_sent(&self) -> u64 {
+        let metrics = self.metrics.lock();
+        metrics.messages_sent
+    }
+
+    /// Get number of messages received
+    pub fn messages_received(&self) -> u64 {
+        let metrics = self.metrics.lock();
+        metrics.messages_received
+    }
+
     /// Get byte statistics
     pub fn byte_stats(&self) -> (u64, u64) {
         let metrics = self.metrics.lock();
         (metrics.bytes_sent, metrics.bytes_received)
+    }
+
+    /// Get number of bytes sent
+    pub fn bytes_sent(&self) -> u64 {
+        let metrics = self.metrics.lock();
+        metrics.bytes_sent
+    }
+
+    /// Get number of bytes received
+    pub fn bytes_received(&self) -> u64 {
+        let metrics = self.metrics.lock();
+        metrics.bytes_received
     }
 
     /// Get latency percentiles
