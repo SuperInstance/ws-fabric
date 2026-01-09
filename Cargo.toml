@@ -39,6 +39,11 @@ name = "websocket_fabric"
 path = "src/lib.rs"
 
 # Benchmarks are in tests/benches directory
+[[bench]]
+name = "message_bench"
+harness = false
+path = "tests/benches/message_bench.rs"
+
 # [[bench]]
 # name = "message_latency"
 # harness = false
