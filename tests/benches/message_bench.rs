@@ -125,7 +125,7 @@ fn bench_message_as_text(c: &mut Criterion) {
 
     c.bench_function("message_as_text", |b| {
         b.iter(|| {
-            black_box(msg.as_text());
+            black_box(msg.as_text().unwrap());
         });
     });
 }
